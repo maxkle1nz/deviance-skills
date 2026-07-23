@@ -12,7 +12,7 @@
 
 Packaged operating doctrine — the method an agent carries into the work.
 
-**Pinned skills:** [c0ntra](claude/c0ntra/) · [pr00f](claude/pr00f/) · [m4nual](claude/m4nual/) · [v1tals](claude/v1tals/) · [git-postman](codex/git-postman/) · [pattern-architect](codex/pattern-architect/)
+**Pinned skills:** <img src="assets/deviance-prism-icon.png" height="15"> [c0ntra](claude/c0ntra/) · <img src="assets/deviance-prism-icon.png" height="15"> [pr00f](claude/pr00f/) · <img src="assets/deviance-prism-icon.png" height="15"> [m4nual](claude/m4nual/) · <img src="assets/deviance-prism-icon.png" height="15"> [v1tals](claude/v1tals/) · <img src="assets/deviance-prism-icon.png" height="15"> [git-postman](codex/git-postman/) · <img src="assets/deviance-prism-icon.png" height="15"> [pattern-architect](codex/pattern-architect/)
 
 ## What this is
 
