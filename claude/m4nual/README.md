@@ -4,7 +4,7 @@
 
 # m4nual
 
-The operations book of a system.
+How a system actually runs, written down.
 
 ## What it does
 

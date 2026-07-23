@@ -4,7 +4,7 @@
 
 # the3y3
 
-The current security truth of a repo — evidence-first, read-only.
+What's actually exploitable. Read-only, no drama.
 
 ## What it does
 

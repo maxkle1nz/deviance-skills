@@ -4,7 +4,7 @@
 
 # sc4le
 
-"How do I scale this?" — answered from proven cases.
+"How do I scale this?" — answered by whoever already got paged for it.
 
 ## What it does
 
