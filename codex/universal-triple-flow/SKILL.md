@@ -1,6 +1,6 @@
 ---
 name: universal-triple-flow
-description: Use when operating any software project with a director Codex thread and two or more Codex CLI lanes in tmux. Creates or reconnects project-specific lanes, assigns clear ownership, prevents duplicate workers, coordinates through a shared channel file, and keeps one director responsible for architecture, integration, verification, and final delivery.
+description: Use when operating any software project with a director Codex thread and two or more Codex CLI lanes in tmux. Creates or reconnects project-specific lanes, assigns clear ownership, prevents duplicate workers, coordinates through a shared channel file, and keeps one director responsible for architecture, integration, verification, and final delivery. NOT for single-agent work, tiny one-file tasks, or projects too small to warrant parallel lanes.
 metadata:
   short-description: Multi-lane Codex project orchestration
 ---

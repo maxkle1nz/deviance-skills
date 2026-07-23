@@ -1,6 +1,6 @@
 ---
 name: pr00f
-description: "Use for NEW exploratory features (the answer isn't known yet) in any repo: the pr00f rite — Prove First, Design After. Phase P: isolated lab (worktree + own runtime + fixture), contract battery born RED before any code, spike to GREEN without touching asserts, adversarial+property harness up to a real oracle (compiler/self-hosting), independent verification. Phase D: the PRD/UML is DISTILLED from the wave artifacts with proof-addresses on every claim, confronted via the world-conditions and organism-intersection matrices, surfaces per actor (human screens/ASCII flows; agent contract-as-UX), one askgod verdict, owner ratification. Trigger when Max says pr00f, 'prove primeiro', 'spike isolado', or a feature is exploratory with a cheap objective oracle and cheap isolation. NOT for CRUD/obvious features (normal flow), not for landing to production (GOD-loop verdict rules still apply), not a substitute for compiler/tests."
+description: "Use for NEW exploratory features (the answer isn't known yet) in any repo: the pr00f rite — Prove First, Design After. Phase P: isolated lab (worktree + own runtime + fixture), contract battery born RED before any code, spike to GREEN without touching asserts, adversarial+property harness up to a real oracle (compiler/self-hosting), independent verification. Phase D: the PRD/UML is DISTILLED from the wave artifacts with proof-addresses on every claim, confronted via the world-conditions and organism-intersection matrices, surfaces per actor (human screens/ASCII flows; agent contract-as-UX), one askgod verdict, owner ratification. Trigger when the user says pr00f, 'prove primeiro', 'spike isolado', or a feature is exploratory with a cheap objective oracle and cheap isolation. NOT for CRUD/obvious features (normal flow), not for landing to production (GOD-loop verdict rules still apply), not a substitute for compiler/tests."
 ---
 
 # pr00f — Prove First, Design After
@@ -52,7 +52,7 @@ segue exigindo verdict. O pr00f desloca o verdict para DEPOIS da prova — nunca
 ## FASE D — Design After (só com o core GREEN nos gates que existem)
 
 **O spike prova a física; o PRD faz a engenharia da casa** — montar o sistema no mundo real
-(outros, tempo, acidente, consequência), do jeito Max Kle1nz: o que serve ao projeto, sem
+(outros, tempo, acidente, consequência), do jeito do dono: o que serve ao projeto, sem
 overengineering, universal.
 
 ### Metade 1 — Destilação (fiel e barata)

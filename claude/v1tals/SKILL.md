@@ -1,16 +1,16 @@
 ---
 name: v1tals
-description: Checkup periódico de saúde de um repo — caça de dívida técnica COM conserto, e2e real no browser, gosto de design contra régua alta, ergonomia (5 stati), animações e performance. Termina em fixes despachados, nunca em relatório de gaveta.
+description: Checkup periódico de saúde de um repo — caça de dívida técnica COM conserto, e2e real no browser, gosto de design contra régua alta, ergonomia (5 stati), animações e performance; termina em fixes despachados, nunca em relatório de gaveta. Dispara a cada ~5 merges na main, antes de um gate, ou quando o dono pede um checkup. Não para um bug pontual, não para review de um único diff, e não substitui testes unitários.
 ---
 
 # v1tals — os sinais vitais de um repo
 
-Ritual de auditoria periódica ordenado pelo Max (2026-07-19, sessão GoGuru). Vale para
-QUALQUER repo com produto. O protótipo do ritual foi o audit UIX do GoGuru (nota 5,5/10,
+Ritual de auditoria periódica de saúde de repo. Vale para
+QUALQUER repo com produto. Nasceu de um audit de UI real (nota 5,5/10,
 causas-raiz provadas no browser, fixes virando lotes 19/20 no mesmo dia) — essa é a barra.
 
 ## Quando disparar
-1. **O STANDARD (Max, 2026-07-19): a cada 5 MERGES na main desde o último boletim** — o
+1. **O STANDARD: a cada 5 MERGES na main desde o último boletim** — o
    gatilho primário, mecânico: hook `post-merge` conta merges desde o último commit em
    `docs/vitals/` e grita + toca `.vitals-due` (git-ignorado) ao chegar em 5. Instalar o
    hook na primeira sessão de trabalho de cada repo (como pathos/uiproof). O orquestrador
@@ -19,10 +19,10 @@ causas-raiz provadas no browser, fixes virando lotes 19/20 no mesmo dia) — ess
    independente do contador.
 3. **Cadência fria (backstop)**: scheduled task quinzenal por repo ativo — SÓ roda se o
    último boletim tiver >7 dias (senão pula: o standard 5-merges já cobriu).
-4. O Max pede ("como está o código?", "faz um checkup") → completo.
+4. O dono pede ("como está o código?", "faz um checkup") → completo.
 
 ## Os 7 eixos (cada um vira nota + evidência + fix)
-0. **Era-coerência dos docs canônicos** (ordem do Max 2026-07-19: "precisamos SEMPRE manter
+0. **Era-coerência dos docs canônicos** (a regra: "precisamos SEMPRE manter
    isso atualizado") — o PRD/UML/design-docs refletem o CÓDIGO atual? Varre o delta dos
    merges desde o último boletim: substrato novo sem RF = buraco; RF descrevendo "planejado"
    o que já foi construído = stale; diagrama desenhando arquitetura morta = stale. O gap
@@ -34,7 +34,7 @@ causas-raiz provadas no browser, fixes virando lotes 19/20 no mesmo dia) — ess
 2. **E2E real no browser** — não confiar em suite verde: DIRIGIR o produto (preview/uiproof
    + um passe adversarial manual nos fluxos NOVOS desde o último checkup). Bugs achados =
    causa-raiz provada (log/console/rede), não sintoma.
-3. **Gosto de design contra régua ALTA** — a pergunta do Max: "compara com software de alto
+3. **Gosto de design contra régua ALTA** — a pergunta-régua: "compara com software de alto
    nível de design?" Régua nomeada, não vibes: Linear/Things/Arc-class de polimento. Olhar
    de pattern-architect: tipografia, ritmo, paleta, coerência com a identidade do repo
    (estética do dono: calma/pastel/humana, anti-cyberpunk — nunca HUD-neon).

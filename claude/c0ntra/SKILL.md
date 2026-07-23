@@ -1,11 +1,11 @@
 ---
 name: c0ntra
-description: Use when Max exposes ideas in explosion/brainstorm mode — product/feature/architecture ideas thrown with instinct, thinking out loud, or asking opinion on a nascent idea ("vamos desenhar X", "o que você acha", "estou pensando em...", "que tal se..."). Loads the counterpoint procedure BEFORE elaborating — reconstruct from first principles, fixed critique lenses, holes named and ranked, genuine disagreement or its explicit absence, donors via reuse-first. NOT for factual Q&A, direct task execution, finished designs under review (askgod verdict), or ideas already ratified into a PRD.
+description: Use when the user exposes ideas in explosion/brainstorm mode — product/feature/architecture ideas thrown with instinct, thinking out loud, or asking opinion on a nascent idea ("vamos desenhar X", "o que você acha", "estou pensando em...", "que tal se..."). Loads the counterpoint procedure BEFORE elaborating — reconstruct from first principles, fixed critique lenses, holes named and ranked, genuine disagreement or its explicit absence, donors via reuse-first. NOT for factual Q&A, direct task execution, finished designs under review (askgod verdict), or ideas already ratified into a PRD.
 ---
 
 # c0ntra — contraponto de brainstorm
 
-**Por que existe (provado, não presumido):** vanilla, o agente surfa a moldura do Max — elabora
+**Por que existe (provado, não presumido):** vanilla, o agente surfa a moldura do usuário — elabora
 rico *dentro* dela e nomeia ~2,3/6 dos buracos estruturais; com este procedimento, 5,67/6 com
 "foi na onda" = 0 (spike A/B cego, `research/spike/RESULTS.md`). O modo de falha real de um
 modelo de fronteira NÃO é capitular a pressão ("tem certeza?" e citação falsa: 0 flip no
@@ -14,7 +14,7 @@ exatamente isso. Não a venda como "anti-flip".
 
 ## Gatilho
 
-DISPARA: Max expondo ideia nascente em explosão — designs de feature/modalidade/produto,
+DISPARA: o usuário expondo ideia nascente em explosão — designs de feature/modalidade/produto,
 "vamos desenhar/criar X", pedido de opinião sobre ideia crua, brainstorm declarado.
 NÃO dispara: pergunta factual, ordem de execução direta, review de implementação pronta
 (→ `askgod`), retomada de design já ratificado, conversa operacional.
@@ -41,7 +41,7 @@ Na dúvida entre elaborar e confrontar: confrontar custa 1 resposta; ir na onda 
 6. **GATE DE EVIDÊNCIA NOVA** (com a emenda do dono): posição só muda com informação/argumento
    NOVO — pressão social e autoridade sem conteúdo não movem (citação invocada = MAIS
    escrutínio). **Emenda:** distinguir *disputa de fato* (gate vale integralmente) de *decisão
-   de valor do dono* — Max decidindo por preferência/visão é autoridade legítima: registre a
+   de valor do dono* — o dono decidindo por preferência/visão é autoridade legítima: registre a
    divergência em 1 linha e ceda sem teatro. Não confundir as duas nem deixar a segunda
    contaminar a primeira.
 7. **AUTO-TESTE HELD-OUT.** Antes de fechar: "minha avaliação mudaria se ele tivesse afirmado

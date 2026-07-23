@@ -9,7 +9,7 @@
 
 Packaged operating doctrine — the method an agent carries into the work.
 
-**Pinned skills:** <img src="assets/deviance-prism-icon.png" height="15"> [c0ntra](claude/c0ntra/) · <img src="assets/deviance-prism-icon.png" height="15"> [pr00f](claude/pr00f/) · <img src="assets/deviance-prism-icon.png" height="15"> [m4nual](claude/m4nual/) · <img src="assets/deviance-prism-icon.png" height="15"> [v1tals](claude/v1tals/) · <img src="assets/deviance-prism-icon.png" height="15"> [git-postman](codex/git-postman/) · <img src="assets/deviance-prism-icon.png" height="15"> [pattern-architect](codex/pattern-architect/)
+**Start here** — the 6 of 13 I reach for most: <img src="assets/deviance-prism-icon.png" height="15"> [c0ntra](claude/c0ntra/) · <img src="assets/deviance-prism-icon.png" height="15"> [pr00f](claude/pr00f/) · <img src="assets/deviance-prism-icon.png" height="15"> [m4nual](claude/m4nual/) · <img src="assets/deviance-prism-icon.png" height="15"> [v1tals](claude/v1tals/) · <img src="assets/deviance-prism-icon.png" height="15"> [git-postman](codex/git-postman/) · <img src="assets/deviance-prism-icon.png" height="15"> [pattern-architect](codex/pattern-architect/)
 
 ## What this is
 
@@ -46,6 +46,7 @@ A periodic repo checkup across technical debt, real browser e2e, design taste, e
 [![sc4le](assets/banners/sc4le.svg)](claude/sc4le/)
 
 Answers scaling and system-design questions from a local ByteByteGo knowledge base, grounding the answer in how Figma, Discord, Netflix and others solved it instead of generic theory.
+
 [![the3y3](assets/banners/the3y3.svg)](claude/the3y3/)
 
 Evidence-first, read-only security assessment of a repository: current security truth, attack surface, trust boundaries, exploitable paths, supply chain, CI/CD, secrets — reported with evidence, never asserted.
@@ -78,7 +79,7 @@ A delegation workflow that hands bounded implementation to a fast Codex worker w
 
 `c0ntra` is proven, not presumed. It ships with a complete A/B harness in `claude/c0ntra/research/spike/`: a battery of cases with an answer key, a blind judge, a runner, and the recorded transcripts and verdicts. In that spike the armed procedure named 5.67 of 6 structural holes on brainstorm cases against 2.33 vanilla, and dropped "went with the framing" to zero. It is a small directional run (n=10, single judge), and the write-up says so — the win is in brainstorm critique, not in stopping factual flips, which the baseline already resisted.
 
-The banners are generated, not drawn one-off: `assets/banners/generate.py` emits all eleven from the DEViance hermetic form grammar (phi rails, rhythm cuts, bone/void/signal). Change the grammar, regenerate the set.
+The banners are generated, not drawn one-off: `assets/banners/generate.py` emits all thirteen from the DEViance hermetic form grammar (phi rails, rhythm cuts, bone/void/signal). Change the grammar, regenerate the set.
 
 ## Install
 
@@ -97,6 +98,10 @@ cp -r codex/git-postman ~/.codex/skills/
 ```
 
 `sc4le` clones the public knowledge base it reads (ByteByteGo `system-design-101`) on first use when the clone is missing, so it works from a fresh copy.
+
+## Offer-first — so they don't fire behind your back
+
+These skills change *how* a task is done, so they shouldn't activate silently. [`OFFERING.md`](OFFERING.md) is a short policy: the agent **offers** a matching skill once and waits for your OK — it doesn't invoke behind your back, and it doesn't pester you over loose keyword matches (at most one offer per skill per objective). The trigger source stays each skill's own `SKILL.md`; the policy only adds the offer behavior on top. This pack never edits your `CLAUDE.md` — adoption is one line you paste yourself. Full matrix and the exact line are in [`OFFERING.md`](OFFERING.md).
 
 ## Status — honest
 

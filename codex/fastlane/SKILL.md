@@ -6,7 +6,7 @@ description: >-
   agent must provide full context, precise ownership, proof criteria,
   anti-false-positive checks, and then review, harden, and verify the result
   before acceptance. Treat Fastlane as a living universal workflow: after
-  repeated use, propose skill updates when reusable delegation lessons emerge.
+  repeated use, propose skill updates when reusable delegation lessons emerge. NOT for trivial one-file edits the parent can do directly, NOT when there is no checkable proof criterion, and NOT for unbounded or exploratory work.
 ---
 
 # Fastlane

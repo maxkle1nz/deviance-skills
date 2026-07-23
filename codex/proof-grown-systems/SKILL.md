@@ -8,7 +8,7 @@ description: >-
   replicate the method from zero, define a universal build/research process,
   harden a prototype into a proof-grown system, design SSOTs/contracts, scale a
   generator/framework, name a proven class from repeated proofs, or avoid
-  false-positive "it works" claims.
+  false-positive "it works" claims. NOT for one-off scripts, throwaway prototypes, or work whose behavior does not need to be proven.
 ---
 
 # Proof-Grown Systems
