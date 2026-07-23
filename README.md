@@ -1,6 +1,18 @@
+<p align="center">
+  <img src="assets/deviance-prism-icon.png" width="64" alt="">
+</p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/deviance-lockup-bone.png">
+    <img src="assets/deviance-lockup.png" width="440" alt="DEViance Intelligence — beyond the edge">
+  </picture>
+</p>
+
 # deviance-skills
 
 Packaged operating doctrine — the method an agent carries into the work.
+
+**Pinned skills:** [c0ntra](claude/c0ntra/) · [pr00f](claude/pr00f/) · [m4nual](claude/m4nual/) · [v1tals](claude/v1tals/) · [git-postman](codex/git-postman/) · [pattern-architect](codex/pattern-architect/)
 
 ## What this is
 

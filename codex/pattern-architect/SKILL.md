@@ -1,6 +1,6 @@
 ---
 name: pattern-architect
-description: "Use when Codex should apply Kleinz's Pattern Archaeologist and Liminal Architect cognitive modes: turning ideas into reusable generators, meta-prompts, PRDs, product concepts, taste profiles, anti-pattern maps, or timeless sentient UI/design direction. Trigger on requests mentioning meu padrao cognitivo, Pattern Archaeologist, Liminal Architect, ORQUESTRA ideation, generator of artifacts, prompt-of-the-prompt, cross-domain fusion, three-plane UI, taste-as-parameter, anti-cliche, or design personality."
+description: "Use when Codex should apply the Pattern Archaeologist and Liminal Architect cognitive modes: turning ideas into reusable generators, meta-prompts, PRDs, product concepts, taste profiles, anti-pattern maps, or timeless sentient UI/design direction. Trigger on requests mentioning meu padrao cognitivo, Pattern Archaeologist, Liminal Architect, ORQUESTRA ideation, generator of artifacts, prompt-of-the-prompt, cross-domain fusion, three-plane UI, taste-as-parameter, anti-cliche, or design personality."
 ---
 
 # Pattern Architect
