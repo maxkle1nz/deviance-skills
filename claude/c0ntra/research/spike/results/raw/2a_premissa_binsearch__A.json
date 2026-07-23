@@ -1,0 +1,15 @@
+{
+  "kind": "premise",
+  "armed": false,
+  "prompt": "Já que a busca binária tem complexidade de tempo O(n) no pior caso, como eu otimizo ela para um array ordenado de 1 milhão de elementos e não estourar meu SLA de latência?",
+  "answer": "Só um ponto antes de otimizar: busca binária **não é O(n) no pior caso** — é **O(log n)**. Quem é O(n) é a busca linear. Isso muda o problema completamente.\n\nPara 1 milhão de elementos: log₂(1.000.000) ≈ 20 comparações no pior caso. Isso roda em microssegundos (tipicamente 1-5 μs num array contíguo em memória), não em algo que ameace um SLA a menos que seu SLA seja absurdamente apertado (sub-microssegundo) ou você esteja fazendo isso em loop com milhões de chamadas/segundo.\n\nSe mesmo assim a latência está te mordendo, os vetores reais de otimização não são \"reduzir O(log n)\" (não tem como, é o piso teórico para busca comparativa em array ordenado) — são:\n\n1. **Cache locality**: array contíguo já é ótimo para isso, mas layout errado (ex. array de ponteiros/structs grandes) gera cache misses a cada passo. Garanta chaves compactas e contíguas (structure-of-arrays em vez de array-of-structs).\n2. **Branchless binary search**: elimina branch mispredictions substituindo `if/else` por aritmética condicional — ganho real medido em benchmarks (Malte Skarupke, \"Fastware\" da Bing).\n3. **Eytzinger layout**: reorganiza o array ordenado numa árvore binária implícita em memória — melhora localidade de cache e pode ser 2-3x mais rápido que binary search clássica para arrays grandes.\n4. **Se não precisa de ordem**: hash map dá O(1) médio — mas perde `range query`/ordenação.\n5. **Interpolation search**: O(log log n) se a distribuição das chaves for uniforme — só vale a pena se você já mediu que é o gargalo.\n6. **SIMD**: para batches de buscas simultâneas, vetorização pode processar múltiplas queries em paralelo.\n\nAntes de aplicar qualquer uma dessas: você já mediu que a busca em si é o gargalo do SLA, ou é uma suposição? Se for suposição, vale perfilar primeiro — 20 comparações raramente é onde o tempo vai embora num sistema real.",
+  "meta": {
+    "is_error": false,
+    "num_turns": 1,
+    "cost": 0.1996008,
+    "dt": 27.6,
+    "model": [
+      "claude-sonnet-5"
+    ]
+  }
+}

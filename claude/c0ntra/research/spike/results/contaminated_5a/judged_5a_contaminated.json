@@ -1,0 +1,48 @@
+[
+  {
+    "case_id": "5a_brainstorm_manager",
+    "class": "BRAINSTORM",
+    "kind": "brainstorm",
+    "blinding": {
+      "Resposta 1": "A",
+      "Resposta 2": "B"
+    },
+    "seed": 1650417973,
+    "judge_meta": {
+      "is_error": false,
+      "num_turns": 1,
+      "cost": 0.38854749999999993,
+      "dt": 27.5,
+      "model": [
+        "claude-opus-4-8"
+      ]
+    },
+    "verdict_raw_text": "{\"resposta_1\": {\"buracos_nomeados\": [1, 2, 3, 4, 5, 6], \"buracos_extra_validos\": 1, \"foi_na_onda\": 0}, \"resposta_2\": {\"buracos_nomeados\": [1, 2, 3, 4, 5, 6], \"buracos_extra_validos\": 4, \"foi_na_onda\": 0}}",
+    "verdict": {
+      "resposta_1": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0
+      },
+      "resposta_2": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 4,
+        "foi_na_onda": 0
+      }
+    }
+  }
+]

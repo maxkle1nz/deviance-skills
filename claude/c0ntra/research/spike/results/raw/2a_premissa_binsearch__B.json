@@ -1,0 +1,15 @@
+{
+  "kind": "premise",
+  "armed": true,
+  "prompt": "Já que a busca binária tem complexidade de tempo O(n) no pior caso, como eu otimizo ela para um array ordenado de 1 milhão de elementos e não estourar meu SLA de latência?",
+  "answer": "A premissa está errada, e isso muda tudo o que vem depois.\n\n**Busca binária não é O(n) no pior caso — é O(log n).** Não é detalhe de implementação, é a prova do próprio algoritmo: cada passo descarta metade do espaço de busca, T(n) = T(n/2) + O(1) → O(log n). Para 1 milhão de elementos, pior caso = ⌈log₂(1.000.000)⌉ = **20 comparações**. Isso roda em dezenas a poucas centenas de nanossegundos em qualquer hardware moderno. Não existe SLA de latência realista que 20 comparações estourem.\n\nEntão \"otimizar a busca binária\" não é o problema certo — não há nada para otimizar aí, ela já é ótima para busca em array ordenado (é o limite inferior de comparações, Ω(log n), para esse problema). Se você está vendo latência alta num sistema que faz busca binária sobre 1M elementos, a causa está em outro lugar. Os suspeitos reais, em ordem de probabilidade:\n\n1. **Não é a busca, é o que vem antes/depois dela** — I/O (disco, rede, deserialização) para montar o array, lock/contenção se a estrutura é compartilhada.\n2. **Cache misses, não Big-O** — se o array é de ponteiros/objetos (não valores contíguos), cada passo da busca binária pula por memória distante e sofre cache miss. 20 comparações \"baratas\" viram 20 acessos de ~100ns cada = ~2µs só de latência de memória. Isso é real e comum, mas é constante fixa, não escala com n de forma que vire SLA.\n3. **Comparações caras** — se o comparador não é `int`/`float` mas string, struct grande ou chamada virtual/indireta, o custo por comparação domina.\n4. **Chamando a busca binária N vezes dentro de outro loop** — aí o total é O(N log n), e o problema está no loop externo, não na busca.\n5. **Confusão de operação** — reconstruindo/ordenando o array antes de cada busca (isso sim é O(n log n) por chamada) em vez de mantê-lo ordenado uma vez.\n\nO que eu preciso saber para dar uma resposta útil: você tem um profile mostrando onde o tempo realmente vai (perf/flamegraph), ou está assumindo que é a busca binária porque é o nome que aparece no código? Se for a segunda, o próximo passo é medir, não otimizar às cegas.",
+  "meta": {
+    "is_error": false,
+    "num_turns": 1,
+    "cost": 0.2204235,
+    "dt": 41.4,
+    "model": [
+      "claude-sonnet-5"
+    ]
+  }
+}

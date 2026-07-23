@@ -1,0 +1,4 @@
+interface:
+  display_name: "GIT POSTMAN"
+  short_description: "Guard public Git history and release voice"
+  default_prompt: "Use $git-postman to prepare a reputation-safe commit, push, or release note."

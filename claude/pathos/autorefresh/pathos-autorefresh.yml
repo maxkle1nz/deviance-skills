@@ -1,0 +1,88 @@
+# Auto-refresh do PATHOS.md no push da main.
+# Copie para .github/workflows/pathos-autorefresh.yml do repo alvo.
+#
+# O que faz: regenera as seções auto-* do PATHOS.md (changelog via git-cliff + overview)
+# e, se o arquivo mudou, commita de volta como Max Kle1nz com [skip ci] (evita loop).
+# Secrets: nenhum obrigatório (GITHUB_TOKEN default). Se a main tiver required status
+# checks, o push-back exige o secret OPCIONAL PATHOS_REFRESH_TOKEN (PAT de admin) —
+# sem ele o workflow avisa (fail-soft) em vez de falhar.
+
+name: pathos-autorefresh
+
+on:
+  push:
+    branches: [main]
+    # Evita re-disparar no commit que a própria Action faz (o [skip ci] já cobre,
+    # isto é cinto-e-suspensório) e em mudanças irrelevantes ao norte.
+    paths-ignore:
+      - 'docs/internal/PATHOS.md'
+      - 'docs/PATHOS.md'
+      - 'PATHOS.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pathos-autorefresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # git-cliff precisa do histórico completo
+          # Se a main exigir required status checks, o GITHUB_TOKEN não pode dar push
+          # direto (GH006 — provado no m1nd 2026-07-03). Um fine-grained PAT de admin
+          # (Contents: read/write) no secret PATHOS_REFRESH_TOKEN destrava; sem ele,
+          # o push cai no fail-soft abaixo (warning + summary, nunca run vermelho perpétuo).
+          token: ${{ secrets.PATHOS_REFRESH_TOKEN || github.token }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instala git-cliff
+        uses: taiki-e/install-action@v2
+        with:
+          tool: git-cliff
+
+      - name: Regenera as seções auto-* do PATHOS
+        # Ajuste o caminho se você não usar .github/scripts/
+        run: node .github/scripts/pathos-autorefresh.mjs
+
+      - name: Commita o PATHOS (se mudou) como Max Kle1nz
+        run: |
+          git config user.name "Max Kle1nz"
+          git config user.email "kleinz@cosmophonix.com"
+          # Tenta os 3 caminhos suportados; ignora os que não existem.
+          # NÃO usar um único `git add a b c`: pathspec inexistente é erro ATÔMICO
+          # (nada é adicionado e o refresh se perde em silêncio — bug provado no m1nd 2026-07-03).
+          for f in docs/internal/PATHOS.md docs/PATHOS.md PATHOS.md; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "Nada para commitar (PATHOS já alinhado)."
+          else
+            git commit -m "docs(norte): auto-refresh PATHOS [skip ci]"
+            # Fail-soft: required status checks na main rejeitam o push do GITHUB_TOKEN
+            # (GH006). Não deixar o workflow vermelho a cada push (cry-wolf); avisar alto.
+            if git push; then
+              echo "PATHOS auto-refresh aterrissou na main."
+            else
+              echo "::warning title=PATHOS auto-refresh bloqueado::Refresh gerado e commitado no runner, mas o push na main foi rejeitado pela branch protection. Destrave: secret PATHOS_REFRESH_TOKEN (fine-grained PAT de admin, Contents read/write) — o workflow ja o usa se existir."
+              {
+                echo "## PATHOS auto-refresh — push bloqueado pela branch protection"
+                echo ""
+                echo "O refresh foi **gerado** e **commitado** no runner, mas o push direto na \`main\`"
+                echo "foi rejeitado (required status checks; \`GITHUB_TOKEN\` sem bypass)."
+                echo ""
+                echo "**Destravar (decisão do dono do repo):**"
+                echo "- **Opção A (preferida):** fine-grained PAT (Contents: read/write) no secret"
+                echo "  \`PATHOS_REFRESH_TOKEN\` — este workflow já o usa se existir."
+                echo "- **Opção B:** bypass dos required checks para \`github-actions\` (branch protection)."
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi

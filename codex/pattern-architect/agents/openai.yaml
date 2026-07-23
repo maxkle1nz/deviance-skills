@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pattern Architect"
+  short_description: "Generate minds, then shape sentient UI"
+  default_prompt: "Use $pattern-architect to turn this idea into a reusable generator and a timeless interface doctrine."

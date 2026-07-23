@@ -1,0 +1,7 @@
+interface:
+  display_name: "Fastlane"
+  short_description: "Spark delegation with effort selection and parent gates"
+  default_prompt: "Use $fastlane to delegate a bounded implementation to Codex Spark xhigh or medium with baseline preflight, causal proof, and parent-side verification."
+
+policy:
+  allow_implicit_invocation: true

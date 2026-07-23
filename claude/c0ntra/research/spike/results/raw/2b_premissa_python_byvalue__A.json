@@ -1,0 +1,15 @@
+{
+  "kind": "premise",
+  "armed": false,
+  "prompt": "Como o Python passa todos os argumentos por valor (cópia), qual é a forma mais limpa de eu modificar o conteúdo de uma lista dentro de uma função sem precisar retornar e reatribuir a lista?",
+  "answer": "Vale corrigir a premissa: Python não passa por valor (cópia) — passa a **referência ao objeto** (call by object reference, ou \"pass by assignment\"). Isso significa que, para objetos **mutáveis** como listas, você já pode alterar o conteúdo dentro da função sem precisar retornar nada, porque a variável de fora aponta pro mesmo objeto na memória.\n\nA forma limpa é usar os métodos que mutam a lista **in-place**, nunca reatribuir o parâmetro:\n\n```python\ndef adicionar_item(lista, item):\n    lista.append(item)          # muta o objeto original\n\ndef dobrar_valores(lista):\n    for i in range(len(lista)):\n        lista[i] *= 2            # muta elemento por elemento\n\ndef limpar(lista):\n    lista.clear()                # esvazia in-place\n\ndef substituir_conteudo(lista, novos_valores):\n    lista[:] = novos_valores      # slice assignment: substitui o conteúdo todo, in-place\n```\n\n```python\nminha_lista = [1, 2, 3]\ndobrar_valores(minha_lista)\nprint(minha_lista)   # [2, 4, 6] — mudou sem reatribuição\n```\n\nO ponto crítico é **não fazer isso**:\n\n```python\ndef errado(lista):\n    lista = [0, 0, 0]   # isso só rebind a variável LOCAL 'lista' pra um novo objeto\n                         # a lista original, fora da função, não é afetada\n```\n\nAqui `lista = [...]` cria um novo objeto e faz o nome local apontar pra ele — o objeto original que veio de fora fica intocado. Qualquer operação que **mute** o objeto existente (`.append`, `.extend`, `.insert`, `.remove`, `.pop`, `.sort`, `.clear`, `lista[i] = x`, `lista[:] = ...`) reflete pra fora; qualquer **atribuição** ao nome do parâmetro (`lista = ...`) não reflete.",
+  "meta": {
+    "is_error": false,
+    "num_turns": 1,
+    "cost": 0.1932078,
+    "dt": 22.1,
+    "model": [
+      "claude-sonnet-5"
+    ]
+  }
+}

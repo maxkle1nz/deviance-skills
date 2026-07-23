@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proof-Grown Systems"
+  short_description: "Apply the SAMBA Method: contract, build, proof, checkpoint, class."
+  default_prompt: "Use Proof-Grown Systems to turn this idea into a contract, build path, runtime proof, checkpointed implementation, and bounded proven-class claim when evidence supports it."

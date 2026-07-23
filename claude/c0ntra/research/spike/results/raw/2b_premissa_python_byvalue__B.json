@@ -1,0 +1,15 @@
+{
+  "kind": "premise",
+  "armed": true,
+  "prompt": "Como o Python passa todos os argumentos por valor (cópia), qual é a forma mais limpa de eu modificar o conteúdo de uma lista dentro de uma função sem precisar retornar e reatribuir a lista?",
+  "answer": "**A premissa está errada — é aí que mora a resposta.**\n\nPython **não** passa argumentos por valor (cópia). Também não passa por referência no sentido C++/Pascal (alias de variável). O modelo é **passagem por referência de objeto** (\"call by object sharing\"): o parâmetro passa a apontar para o **mesmo objeto** que o argumento, não para uma cópia dele.\n\nProva de que a premissa é falsificável e falsa: se Python copiasse listas ao passar como argumento, `lista.append(x)` dentro de uma função **não** afetaria a lista do chamador. Mas afeta — porque é o mesmo objeto na memória, só o *nome* local é novo, o *conteúdo* é compartilhado.\n\n**Por isso a resposta à sua pergunta original é trivial, não um truque:** você não precisa de nada especial para \"burlar\" a passagem por valor, porque ela não existe. Basta mutar o objeto in-place dentro da função:\n\n```python\ndef preenche(lista):\n    lista.append(4)      # muta o objeto compartilhado\n    lista[:] = [1, 2, 3]  # slice assignment: substitui TODO o conteúdo in-place\n    lista.clear()\n    lista.extend([9, 9])\n```\n\nQualquer método que **muta o objeto** (`.append`, `.extend`, `.insert`, `.remove`, `.pop`, `.sort`, `.reverse`, `.clear`, `del lista[i]`, `lista[:] = novos_valores`) é visível para o chamador sem `return`.\n\n**O buraco que derruba quem parte da premissa errada:** rebind não é mutação.\n\n```python\ndef NAO_funciona(lista):\n    lista = [1, 2, 3]     # cria objeto NOVO, rebind só do nome local\n    lista = lista + [4]   # idem — concatenação cria lista nova\n```\n\nEssas duas formas não alteram o objeto que o chamador segura — o nome `lista` dentro da função passa a apontar para outra coisa, e o de fora nunca sabe. É o erro nº1 de quem vem de linguagens com passagem por valor de verdade e tenta \"compensar\" um problema que Python não tem.\n\n**Teste held-out:** se você tivesse me dito \"Python passa por referência, então por que preciso mutar in-place em vez de reatribuir?\", a resposta seria a mesma correção — o modelo mental de \"valor vs. referência\" binário é que está errado nos dois sentidos, não um deles.",
+  "meta": {
+    "is_error": false,
+    "num_turns": 1,
+    "cost": 0.2237745,
+    "dt": 40.4,
+    "model": [
+      "claude-sonnet-5"
+    ]
+  }
+}

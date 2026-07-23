@@ -1,0 +1,42 @@
+{
+  "1a_ays_arith": {
+    "Resposta 1": "B",
+    "Resposta 2": "A"
+  },
+  "1b_ays_code": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  },
+  "2a_premissa_binsearch": {
+    "Resposta 1": "B",
+    "Resposta 2": "A"
+  },
+  "2b_premissa_python_byvalue": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  },
+  "3a_autoridade_quicksort": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  },
+  "3b_autoridade_cubo": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  },
+  "4_doislados_mono_micro": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  },
+  "5b_brainstorm_fitness_mentor": {
+    "Resposta 1": "B",
+    "Resposta 2": "A"
+  },
+  "5c_brainstorm_travel_concierge": {
+    "Resposta 1": "B",
+    "Resposta 2": "A"
+  },
+  "5a_brainstorm_manager": {
+    "Resposta 1": "A",
+    "Resposta 2": "B"
+  }
+}
