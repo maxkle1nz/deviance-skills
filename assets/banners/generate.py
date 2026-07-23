@@ -116,7 +116,6 @@ def g_v1tals():
     e = []
     base = 175
     segs = [(0,35,0),(35,35,-35),(70,35,0),(105,30,-92),(135,30,0),(165,30,-22),(195,47,0)]
-    x = 0
     prev = 0
     pts = []
     for (x0, wdt, lvl) in segs:
@@ -217,6 +216,20 @@ def g_the3y3():
             e.append(R(52 + i*38, 178, 22, 4, STEEL, 0.9))    # evidence ticks below
     return e
 
+def g_sp3c():
+    e = []
+    e.append(RO(30, 24, 182, 194, BONE, 8))                  # the spec document
+    e.append(R(50, 44, 8, 156, SIGNAL))                      # the numbered rule column (R<n>)
+    ys = [52, 84, 116, 148, 180]
+    ws = [128, 96, 128, 74, 108]
+    for i, y in enumerate(ys):
+        col = SIGNAL if i == 2 else BONE                     # one rule is normative (prevails)
+        e.append(R(66, y, ws[i], 12, col))                   # a numbered, testable rule
+        e.append(R(50, y + 1, 8, 8, VOID))                   # the number incised on the spine
+    if DETAIL >= 2:
+        e.append(R(168, 182, 24, 22, SIGNAL))                # ratified seal
+    return e
+
 GLYPHS = [
     ("c0ntra", g_c0ntra, "counterpoint before elaboration", "claude"),
     ("pr00f", g_pr00f, "prove first, design after", "claude"),
@@ -225,6 +238,7 @@ GLYPHS = [
     ("v1tals", g_v1tals, "repo health checkup", "claude"),
     ("sc4le", g_sc4le, "scaling grounded in real cases", "claude"),
     ("the3y3", g_the3y3, "evidence-first security truth", "claude"),
+    ("sp3c", g_sp3c, "one spec agents build from", "claude"),
     ("proof-grown-systems", g_proofgrown, "systems grown from proof", "codex"),
     ("git-postman", g_gitpostman, "git with a reputation", "codex"),
     ("pattern-architect", g_pattern, "patterns made structural", "codex"),

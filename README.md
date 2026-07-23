@@ -50,6 +50,10 @@ Answers scaling and system-design questions from a local ByteByteGo knowledge ba
 
 Evidence-first, read-only security assessment of a repository: current security truth, attack surface, trust boundaries, exploitable paths, supply chain, CI/CD, secrets — reported with evidence, never asserted.
 
+[![sp3c](assets/banners/sp3c.svg)](claude/sp3c/)
+
+The KERNEL-SPEC pattern: one executor-normative spec so agents can build a big system from the document alone, without the author in the loop. Every rule numbered and testable, silence becomes a seat-request instead of a guess, and amendments consolidate before they rot into two competing specs.
+
 ### Codex CLI — `codex/`
 
 [![proof-grown-systems](assets/banners/proof-grown-systems.svg)](codex/proof-grown-systems/)
