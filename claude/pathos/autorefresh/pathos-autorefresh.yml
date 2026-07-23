@@ -2,7 +2,7 @@
 # Copie para .github/workflows/pathos-autorefresh.yml do repo alvo.
 #
 # O que faz: regenera as seções auto-* do PATHOS.md (changelog via git-cliff + overview)
-# e, se o arquivo mudou, commita de volta como Max Kle1nz com [skip ci] (evita loop).
+# e, se o arquivo mudou, commita de volta como o bot da Action com [skip ci] (evita loop).
 # Secrets: nenhum obrigatório (GITHUB_TOKEN default). Se a main tiver required status
 # checks, o push-back exige o secret OPCIONAL PATHOS_REFRESH_TOKEN (PAT de admin) —
 # sem ele o workflow avisa (fail-soft) em vez de falhar.
@@ -53,10 +53,11 @@ jobs:
         # Ajuste o caminho se você não usar .github/scripts/
         run: node .github/scripts/pathos-autorefresh.mjs
 
-      - name: Commita o PATHOS (se mudou) como Max Kle1nz
+      - name: Commita o PATHOS (se mudou)
         run: |
-          git config user.name "Max Kle1nz"
-          git config user.email "kleinz@cosmophonix.com"
+          # Edite estes dois valores se quiser outra identidade nos commits do autorefresh.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Tenta os 3 caminhos suportados; ignora os que não existem.
           # NÃO usar um único `git add a b c`: pathspec inexistente é erro ATÔMICO
           # (nada é adicionado e o refresh se perde em silêncio — bug provado no m1nd 2026-07-03).

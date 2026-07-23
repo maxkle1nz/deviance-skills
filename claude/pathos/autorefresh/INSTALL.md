@@ -4,7 +4,7 @@ Padrão portátil que mantém as seções **auto-geradas** do `PATHOS.md` em dia
 um **changelog** (via [git-cliff](https://git-cliff.org), a partir dos Conventional Commits) e um
 **overview** simples do repo. O conteúdo curado à mão nunca é tocado — só o que está entre as âncoras.
 
-Extraído do mecanismo já provado no repo Cherry Bubbles, generalizado (sem proofs/domínios de nenhum projeto).
+Um mecanismo genérico de autorefresh de PATHOS, sem proofs ou domínios de nenhum projeto.
 
 ## Passos
 
@@ -37,7 +37,7 @@ Extraído do mecanismo já provado no repo Cherry Bubbles, generalizado (sem pro
    padrão são ignorados (`filter_unconventional = true`).
 
 4. **Nenhum secret necessário.** A Action usa o `GITHUB_TOKEN` default com `permissions: contents: write`.
-   Os commits de volta são feitos como **`Max Kle1nz <kleinz@cosmophonix.com>`** com `[skip ci]`
+   Os commits de volta são feitos como o **bot da Action** (`github-actions[bot]`) com `[skip ci]` — edite o `git config` no workflow para usar outra identidade
    (não dispara a Action de novo).
 
 5. (Opcional) **Teste local** antes de confiar no CI — exige `git-cliff` instalado
@@ -51,7 +51,7 @@ Extraído do mecanismo já provado no repo Cherry Bubbles, generalizado (sem pro
 
 - No `push` da `main` (com `paths-ignore` no próprio `PATHOS.md` p/ não criar loop), a Action:
   instala git-cliff → roda `node .github/scripts/pathos-autorefresh.mjs` → se o `PATHOS.md` mudou,
-  commita de volta como Max Kle1nz com `[skip ci]` e dá push.
+  commita de volta como o bot da Action com `[skip ci]` e dá push.
 - `auto-changelog`: `git-cliff --unreleased` (desde a última tag `vX.Y.Z`; sem tags = histórico todo),
   agrupado por tipo de commit conforme o `cliff.toml`.
 - `auto-overview`: nome do repo, branch, data do último commit e contagem de commits desde a última tag.
