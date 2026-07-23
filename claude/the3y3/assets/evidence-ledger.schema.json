@@ -1,0 +1,689 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The3y3 evidence ledger",
+  "description": "Portable structural contract for a the3y3 point-in-time repository security assessment. Use validate_evidence.py for additional semantic invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assessment",
+    "summary",
+    "domains",
+    "checks",
+    "findings",
+    "hypotheses",
+    "evidence",
+    "unknowns",
+    "recommendations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "assessment": {
+      "$ref": "#/$defs/assessment"
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/domain"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "hypotheses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hypothesis"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unknown"
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recommendation"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^E-[0-9]{3,}$"
+      }
+    },
+    "confidence": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "INFO"
+      ]
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_root",
+        "revision",
+        "observation_point",
+        "working_tree_state",
+        "assessed_at",
+        "mode",
+        "target_type",
+        "scope",
+        "environment",
+        "network_policy",
+        "execution_policy",
+        "assessor",
+        "external_evidence",
+        "exclusions",
+        "limitations"
+      ],
+      "properties": {
+        "repository_root": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "revision": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "observation_point": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "working_tree_state": {
+          "enum": [
+            "CLEAN",
+            "DIRTY",
+            "NOT_APPLICABLE",
+            "UNKNOWN"
+          ]
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mode": {
+          "enum": [
+            "quick",
+            "standard",
+            "deep",
+            "adversarial"
+          ]
+        },
+        "target_type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "environment": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "network_policy": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "execution_policy": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "assessor": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "external_evidence": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "exclusions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_risk",
+        "assurance",
+        "verdict"
+      ],
+      "properties": {
+        "observed_risk": {
+          "enum": [
+            "CRITICAL",
+            "HIGH",
+            "MODERATE",
+            "LOW_OBSERVED",
+            "INDETERMINATE"
+          ]
+        },
+        "assurance": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "INSUFFICIENT"
+          ]
+        },
+        "verdict": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "applicability",
+        "critical",
+        "depth",
+        "verdict",
+        "confidence",
+        "evidence_refs",
+        "main_gap"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "applicability": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "critical": {
+          "type": "boolean"
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "verdict": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "PARTIAL",
+            "UNKNOWN",
+            "NOT_TESTED",
+            "BLOCKED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
+        "main_gap": {
+          "type": "string"
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "status",
+        "scope",
+        "evidence_refs",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^C-[0-9]{3,}$"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "ERROR",
+            "PARTIAL",
+            "NOT_RUN"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "command": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "tool": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "tool_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "working_directory": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "configuration": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "exclusions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "network": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration_seconds": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "NOT_RUN"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          },
+          "else": {
+            "required": [
+              "command",
+              "tool",
+              "tool_version",
+              "working_directory",
+              "configuration",
+              "exclusions",
+              "network",
+              "exit_code",
+              "started_at",
+              "duration_seconds"
+            ]
+          }
+        }
+      ]
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "type",
+        "severity",
+        "severity_rationale",
+        "validation",
+        "confidence",
+        "asset",
+        "location",
+        "attacker_capability",
+        "prerequisites",
+        "exposure",
+        "reachability",
+        "attack_path",
+        "impact",
+        "evidence_refs",
+        "compensating_controls",
+        "assumptions",
+        "remediation",
+        "verification",
+        "owner_type",
+        "effort",
+        "standards"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^F-[0-9]{3,}$"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "type": {
+          "enum": [
+            "vulnerability",
+            "control-gap"
+          ]
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        },
+        "severity_rationale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "validation": {
+          "enum": [
+            "CONFIRMED",
+            "LIKELY",
+            "UNCONFIRMED",
+            "FALSE_POSITIVE"
+          ]
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "asset": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "location": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "attacker_capability": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "exposure": {
+          "enum": [
+            "INTERNET_UNAUTHENTICATED",
+            "INTERNET_AUTHENTICATED",
+            "PARTNER_OR_WEBHOOK",
+            "INTERNAL_NETWORK",
+            "LOCAL_USER",
+            "CI_OR_BUILD",
+            "MAINTAINER_OR_ADMIN",
+            "SUPPLY_CHAIN_CONSUMER",
+            "NONE_OBSERVED",
+            "UNKNOWN"
+          ]
+        },
+        "reachability": {
+          "enum": [
+            "REACHABLE",
+            "CONDITIONALLY_REACHABLE",
+            "UNREACHABLE",
+            "UNKNOWN"
+          ]
+        },
+        "attack_path": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "impact": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
+        "compensating_controls": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "remediation": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "verification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "owner_type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "effort": {
+          "enum": [
+            "S",
+            "M",
+            "L"
+          ]
+        },
+        "standards": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "severity_if_true",
+        "confidence",
+        "reason",
+        "decision_at_risk",
+        "next_evidence",
+        "evidence_refs"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^H-[0-9]{3,}$"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "severity_if_true": {
+          "$ref": "#/$defs/severity"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "decision_at_risk": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "next_evidence": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "locator",
+        "summary",
+        "observed_at",
+        "revision",
+        "redacted",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^E-[0-9]{3,}$"
+        },
+        "kind": {
+          "enum": [
+            "artifact",
+            "history",
+            "tool",
+            "test",
+            "runtime",
+            "attestation",
+            "external-intel"
+          ]
+        },
+        "locator": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "redacted": {
+          "type": "boolean"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "unknown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "priority",
+        "area",
+        "risk_decision",
+        "reason",
+        "next_evidence"
+      ],
+      "properties": {
+        "priority": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ]
+        },
+        "area": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "risk_decision": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "next_evidence": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "priority",
+        "addresses",
+        "action",
+        "rationale",
+        "reuse",
+        "owner_type",
+        "effort",
+        "verification"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^R-[0-9]{3,}$"
+        },
+        "priority": {
+          "enum": [
+            "now",
+            "next",
+            "later"
+          ]
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "action": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reuse": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "owner_type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "effort": {
+          "enum": [
+            "S",
+            "M",
+            "L"
+          ]
+        },
+        "verification": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}

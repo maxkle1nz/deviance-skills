@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.0",
+  "assessment": {
+    "repository_root": "<repository-root>",
+    "revision": "<commit-or-artifact-identity>",
+    "observation_point": "<revision-plus-working-tree-or-artifact-state>",
+    "working_tree_state": "UNKNOWN",
+    "assessed_at": "<UTC-timestamp>",
+    "mode": "standard",
+    "target_type": "<source-working-tree-artifact-runtime-or-combination>",
+    "scope": "<components-and-artifacts>",
+    "environment": "<host-sandbox-or-runtime-context>",
+    "network_policy": "<none-read-only-allowlisted-or-authorized-active>",
+    "execution_policy": "<metadata-only-static-repository-code-or-adversarial>",
+    "assessor": "<client-agent-and-version-if-available>",
+    "external_evidence": [
+      "<authorized-external-source-or-none>"
+    ],
+    "exclusions": [
+      "<explicit-exclusion-or-none>"
+    ],
+    "limitations": [
+      "<material-limitation-or-none>"
+    ]
+  },
+  "summary": {
+    "observed_risk": "HIGH",
+    "assurance": "LOW",
+    "verdict": "<bounded-evidence-first-conclusion>"
+  },
+  "domains": [
+    {
+      "id": "D1",
+      "name": "Architecture and threat model",
+      "applicability": "<why-this-domain-applies>",
+      "critical": true,
+      "depth": 1,
+      "verdict": "UNKNOWN",
+      "confidence": "LOW",
+      "evidence_refs": [
+        "E-001"
+      ],
+      "main_gap": "<next-evidence-needed>"
+    }
+  ],
+  "checks": [
+    {
+      "id": "C-001",
+      "name": "Safe repository census",
+      "status": "PASS",
+      "command": "<redacted-exact-command>",
+      "tool": "repo_probe.py",
+      "tool_version": "1.0",
+      "working_directory": "<absolute-working-directory>",
+      "scope": "<repository-root-and-included-paths>",
+      "configuration": [
+        "<configuration-or-none>"
+      ],
+      "exclusions": [
+        "<excluded-path-or-none>"
+      ],
+      "network": "none",
+      "exit_code": 0,
+      "started_at": "<UTC-timestamp>",
+      "duration_seconds": 0,
+      "evidence_refs": [
+        "E-001"
+      ],
+      "limitations": [
+        "Signals are review leads, not findings."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "<concise-root-cause-title>",
+      "type": "vulnerability",
+      "severity": "HIGH",
+      "severity_rationale": "<contextual-impact-and-likelihood-rationale>",
+      "validation": "LIKELY",
+      "confidence": "MEDIUM",
+      "asset": "<affected-asset-or-component>",
+      "location": "<path-line-function-or-external-control>",
+      "attacker_capability": "<minimum-capability>",
+      "prerequisites": "<required-conditions>",
+      "exposure": "UNKNOWN",
+      "reachability": "CONDITIONALLY_REACHABLE",
+      "attack_path": "<source-to-control-to-effect>",
+      "impact": "<security-effect-and-blast-radius>",
+      "evidence_refs": [
+        "E-001"
+      ],
+      "compensating_controls": [
+        "<observed-control-or-none-observed>"
+      ],
+      "assumptions": [
+        "<remaining-assumption-for-likely-finding>"
+      ],
+      "remediation": "<existing-capability-first-direction>",
+      "verification": "<observable-closure-condition>",
+      "owner_type": "<engineering-security-platform-product-or-operations>",
+      "effort": "M",
+      "standards": [
+        "<useful-control-or-weakness-mapping-or-none>"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H-001",
+      "title": "<material-unresolved-possibility>",
+      "severity_if_true": "HIGH",
+      "confidence": "LOW",
+      "reason": "<why-the-signal-is-plausible>",
+      "decision_at_risk": "<decision-that-could-change>",
+      "next_evidence": "<smallest-useful-next-evidence>",
+      "evidence_refs": [
+        "E-001"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-001",
+      "kind": "tool",
+      "locator": "<artifact-command-or-external-source-locator>",
+      "summary": "<concise-redacted-evidence-summary>",
+      "observed_at": "<UTC-timestamp>",
+      "revision": "<revision-or-external-snapshot>",
+      "redacted": true,
+      "limitations": [
+        "<evidence-limitation-or-none>"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "priority": "HIGH",
+      "area": "<unknown-area>",
+      "risk_decision": "<decision-that-could-change>",
+      "reason": "<why-evidence-is-unavailable>",
+      "next_evidence": "<smallest-useful-next-evidence>"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "R-001",
+      "priority": "now",
+      "addresses": [
+        "F-001"
+      ],
+      "action": "<specific-risk-reduction-action>",
+      "rationale": "<why-this-reduces-material-risk-or-uncertainty>",
+      "reuse": "<existing-capability-first>",
+      "owner_type": "<engineering-security-platform-product-or-operations>",
+      "effort": "S",
+      "verification": "<observable-closure-condition>"
+    }
+  ]
+}

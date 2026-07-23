@@ -1,11 +1,8 @@
 <p align="center">
-  <img src="assets/deviance-prism-icon.png" width="64" alt="">
+  <img src="assets/deviance-prism-icon.png" width="56" alt="">
 </p>
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/deviance-lockup-bone.png">
-    <img src="assets/deviance-lockup.png" width="440" alt="DEViance Intelligence — beyond the edge">
-  </picture>
+  <img src="assets/deviance-trident-lockup.png" width="560" alt="DEViance.dev — intelligence beyond the edge">
 </p>
 
 # deviance-skills
@@ -17,6 +14,10 @@ Packaged operating doctrine — the method an agent carries into the work.
 ## What this is
 
 These are skills for Claude Code (`~/.claude/skills/`) and Codex CLI (`~/.codex/skills/`). Each one is a procedure an agent loads on demand: a fixed way to run a class of work — brainstorm counterpoint, a prove-first feature rite, a session handoff, a repo health checkup. They were pulled from a setup in daily use, and these are the ones that survived it. Copy the folder you want into your skills directory and the agent picks it up.
+
+## Why this exists
+
+With this stack I build at a pace I could not reach before, and I honestly can't remember the last time I lost a day to a bug hunt or to an agent delivering something other than what I asked. The skills are how: they carry the method, so the speed never outruns the proof. Two and a half years of daily AI-first work, distilled. Take it.
 
 ## The skills
 
@@ -45,6 +46,9 @@ A periodic repo checkup across technical debt, real browser e2e, design taste, e
 [![sc4le](assets/banners/sc4le.svg)](claude/sc4le/)
 
 Answers scaling and system-design questions from a local ByteByteGo knowledge base, grounding the answer in how Figma, Discord, Netflix and others solved it instead of generic theory.
+[![the3y3](assets/banners/the3y3.svg)](claude/the3y3/)
+
+Evidence-first, read-only security assessment of a repository: current security truth, attack surface, trust boundaries, exploitable paths, supply chain, CI/CD, secrets — reported with evidence, never asserted.
 
 ### Codex CLI — `codex/`
 

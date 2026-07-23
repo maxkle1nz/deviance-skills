@@ -203,6 +203,20 @@ def g_fastlane():
     e.append(R(185, 108, 13, 26, VOID))
     return e
 
+
+def g_the3y3():
+    e = []
+    e.append(RO(13, 79, 216, 84, BONE, 9))                   # the reading frame
+    e.append(RO(88, 96, 66, 50, BONE, 6))                    # iris frame
+    e.append(R(105, 109, 32, 24, SIGNAL))                     # pupil
+    e.append(R(13, 117, 9, 9, VOID))                          # scan slit left
+    e.append(R(220, 117, 9, 9, VOID))                         # scan slit right
+    e.append(rail(200, 60, 80, 6))                            # audit rail grazing the frame
+    if DETAIL >= 2:
+        for i in range(4):
+            e.append(R(52 + i*38, 178, 22, 4, STEEL, 0.9))    # evidence ticks below
+    return e
+
 GLYPHS = [
     ("c0ntra", g_c0ntra, "counterpoint before elaboration", "claude"),
     ("pr00f", g_pr00f, "prove first, design after", "claude"),
@@ -210,6 +224,7 @@ GLYPHS = [
     ("m4nual", g_m4nual, "the operations book", "claude"),
     ("v1tals", g_v1tals, "repo health checkup", "claude"),
     ("sc4le", g_sc4le, "scaling grounded in real cases", "claude"),
+    ("the3y3", g_the3y3, "evidence-first security truth", "claude"),
     ("proof-grown-systems", g_proofgrown, "systems grown from proof", "codex"),
     ("git-postman", g_gitpostman, "git with a reputation", "codex"),
     ("pattern-architect", g_pattern, "patterns made structural", "codex"),
@@ -244,7 +259,7 @@ def banner(idx, name, glyph_fn, tagline, harness):
     e.append(R(57, 316, W - 114, 1.5, STEELD))
     dl, wl, _ = tp_d(f"DEVIANCE INTELLIGENCE // {harness.upper()} SKILL", 12, 57, 338, tracking=0.5)
     e.append(f'<path d="{dl}" fill="{STEEL}"/>')
-    di, wi, _ = tp_d(f"{idx:02d} / 11", 12, 0, 338, tracking=0.5)
+    di, wi, _ = tp_d(f"{idx:02d} / {len(GLYPHS)}", 12, 0, 338, tracking=0.5)
     e.append(f'<path d="{di}" fill="{SIGNAL}" transform="translate({W - 57 - wi},0)"/>')
     # phi ruler ticks near index
     tx0 = W - 57 - wi - 92

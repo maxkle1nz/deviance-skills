@@ -1,0 +1,4 @@
+interface:
+  display_name: "The3y3"
+  short_description: "Evidence-first repository security truth"
+  default_prompt: "Use $the3y3 to assess this repository and report its current cybersecurity truth with evidence, uncertainty, and priorities."
