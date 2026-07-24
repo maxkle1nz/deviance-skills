@@ -53,12 +53,49 @@ fabricar fricção pra parecer crítico. Discordância é CARA — só existe co
 evidência do contexto. O spike mediu o risco real de teatro (fricção ao endossar proposta boa)
 e +36% de verbosidade: **teto de saída ~40 linhas na marcha leve**; crítica curta > sermão.
 
-## Forma de saída
+## Forma de saída — identidade visual de entrega (v0.2)
 
-Eco da ideia (≤3 linhas, prova de escuta) → reconstrução independente (compacta) → diff com
-buracos ranqueados → discordância genuína OU "sem discordância estrutural" → [marcha cheia:
-donors] → as 2-3 perguntas que mais reduzem incerteza. Energia devolvida, nunca sermão: o
-brainstorm continua vivo — buracos são convite a fechar, não veredito de morte.
+O raciocínio é meu; a SAÍDA é do dono. Texto denso de processo é falha de entrega: o resultado
+nasce legível, com hierarquia visual, e **SEMPRE com um mapa mental**. Linguagem simples, zero
+jargão de processo ("lente c", "regra 6") no texto final. Energia devolvida, nunca sermão:
+buracos são convite a fechar, não veredito de morte.
+
+**Esqueleto fixo (nomes e ordem das seções):**
+
+1. **A IDEIA** — eco em ≤2 linhas (prova de escuta).
+2. **O MAPA** — SEMPRE. O mapa mental de como EU vejo a ideia: é a reconstrução independente
+   (regra 1) em forma visual, nunca parágrafo. Núcleo = a ideia; ramos = atores, valor, quem
+   paga, estados, riscos. **Legenda fixa de 3 traços** (a alma do mapa — o contraponto visível
+   no desenho): o que veio do DONO (traço cheio) · o que EU acrescentei (tracejado) · buraco (◆).
+   Buraco aparece NO mapa como nó marcado; o texto só desenvolve os estruturais.
+3. **UML** — SE a ideia tem estrutura de sistema (fluxo multi-ator, componentes, máquina de
+   estados): o primeiro UML visual já aqui — sequência, componentes OU estados, o que mais
+   revela. Um só, o mais revelador; nunca galeria.
+4. **ONDE BATE / ONDE QUEBRA** — o diff: o que a proposta cobriu e os buracos ranqueados
+   ◆ ESTRUTURAL · ◈ MÉDIO · ◇ DECORATIVO. Com 3+ buracos, tabela (buraco · peso · custo de
+   ignorar); com menos, lista curta.
+5. **DISCORDÂNCIA** — a genuína, ou "sem discordância estrutural" em 1 linha.
+6. **PERGUNTAS** — as 2-3 que mais reduzem incerteza. [Marcha cheia: donors entram antes delas.]
+
+**Canal visual, nesta ordem:**
+- Canal rico disponível (host com widgets/artifacts visuais) → mapa e UML em **SVG inline**.
+  Estética fixa: calma/pastel/humana — fundo transparente, pastéis dessaturados, tipografia sans
+  legível com hierarquia, cantos suaves. PROIBIDO: neon, glow, grid cyberpunk, emoji berrante.
+  Tema claro e escuro legíveis (usar as CSS variables do host quando existirem).
+- Terminal puro → ASCII box-drawing IMPECÁVEL em code block: ramos `├─ └─`, alinhamento
+  perfeito, ≤80 colunas, mesma legenda (dono = texto normal · meu = prefixo `+` · buraco = `◆`).
+- Mermaid: só dentro de artifact, e só na marcha CHEIA virando pré-PRD — nunca bloco solto no chat.
+
+**Assinatura da skill:** glyph `≠` (U+2260; fallback ASCII `!=`) · monograma SVG em
+`assets/signature.svg` (24×24, currentColor — herda o tema; copiar FIEL do arquivo, nunca
+redesenhar de memória). Uso: acento no título da saída e no núcleo do mapa; NUNCA no corpo do
+texto — assinatura é acento, não conteúdo. Terminal usa o glyph.
+
+**A válvula anti-teatro continua mandando.** Concordância = mapa + ≤3 linhas de texto. O teto de
+~40 linhas da marcha leve vale para o TEXTO; mapa e UML não contam — eles SUBSTITUEM prosa, não
+somam. Cada nó do mapa carrega informação que o texto não repete. Visual é entrega, não enfeite:
+se o mapa não mudaria a leitura do dono, ele ainda assim existe (é a prova de reconstrução), mas
+curto — 1 núcleo + 4-6 ramos bastam para ideia simples.
 
 ## Marchas
 

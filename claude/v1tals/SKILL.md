@@ -54,6 +54,30 @@ causas-raiz provadas no browser, fixes virando lotes 19/20 no mesmo dia) — ess
   mutante, specs com file:line). O checkup NÃO está completo com achados órfãos.
 - Bloco no PATHOS do repo se o estado real mudou.
 
+## Forma de saída — o painel de saúde
+
+O boletim `docs/vitals/YYYY-MM-DD.md` continua o artefato durável (greppável, comparável — a
+comparação É o valor). Isto é como o dono lê num olhar. Mesma alma da identidade de entrega da
+skill c0ntra (este pack, `../c0ntra/SKILL.md` § Forma de saída): seções nomeadas, mapa SEMPRE,
+SVG pastel em host rico / ASCII impecável no terminal, linguagem simples do dono. Especialização
+do v1tals:
+
+**Mapa SEMPRE — o painel de saúde:** os eixos como medidores lado a lado, cada um com **nota +
+cor (verde/âmbar/vermelho, semântico) + trend vs o último boletim (↑ melhorou · → estável ·
+↓ piorou)**. Um olhar = a saúde do repo e pra onde ela está indo. A seta é o coração: sem
+comparação, é foto; com ela, é sinal vital.
+
+**Esqueleto fixo:** O PAINEL (todos os eixos, nota + trend) → O QUE MAIS DÓI (achados ranqueados
+por peso, com evidência arquivo:linha) → FIXES DESPACHADOS (inline feitos · lotes criados com
+spec). Nunca boletim de gaveta: a última seção é a prova de que virou ação.
+
+**Válvula (herdada da c0ntra):** eixo verde é dito em 1 linha, sem inventar dívida pra parecer
+minucioso; a energia vai pro que dói. O painel substitui a parede de notas por-eixo, não soma.
+
+**Assinatura da skill:** glyph `∿` (U+223F, o pulso — fallback ASCII `-^-`) · monograma SVG em
+`assets/signature.svg` (24×24, currentColor; copiar FIEL, nunca redesenhar). Uso: acento no
+título do painel e no boletim `docs/vitals/`; NUNCA no corpo. Terminal usa o glyph.
+
 ## Composições
 - Frontend → uiproof (execução determinística; LLM só autoria/heal).
 - Repo com dinheiro → Protected Money Zone segue valendo dentro dos fixes.

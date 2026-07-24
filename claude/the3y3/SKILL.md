@@ -161,6 +161,33 @@ python3 "<skill-directory>/scripts/validate_evidence.py" "<ledger.json>"
 
 If the user requested only a chat answer, keep the same contract in compact form and do not create files merely for ceremony.
 
+### 9a. Visual form of the human report
+
+The machine-readable ledger stays exact and unstyled. The **human-readable report** additionally
+carries a visual delivery layer — same soul as the c0ntra skill's delivery identity (this pack,
+`../c0ntra/SKILL.md`, output-form section): named sections, a map when structure warrants it,
+pastel SVG on rich hosts / clean box-drawing ASCII in the terminal, owner-facing plain language.
+This does not replace [report-contract.md](references/report-contract.md) — it renders it.
+Match the user's language, as the Mission already requires.
+
+- **Posture card first** — render the required status block (`Observed risk`, `Assurance`,
+  observation point, mode/scope) as a card the reader parses in one glance, risk color-coded
+  `CRITICAL`/`HIGH`/`MODERATE`/`LOW_OBSERVED`/`INDETERMINATE`. Never let `LOW_OBSERVED` read as green "secure".
+- **The map is the trust-boundary / attack-path diagram** — when it clarifies three or more
+  relationships (the contract's threshold), draw it as an actual diagram (SVG or mermaid-in-artifact),
+  not a fenced `text` block: actors, boundaries, and where attacker-controlled data crosses into a
+  privileged sink. This is the security analogue of the c0ntra mind-map — the reconstruction made visible.
+- **Findings as ranked cards** — contextual priority then confidence; confirmed/likely separated
+  from unresolved hypotheses. Here **color encodes severity and confidence**, not mood — that is the
+  licensed departure from the calm palette, and it is a convention security readers already expect.
+- **Valve** — `LOW_OBSERVED` with honest coverage is a legitimate result stated plainly plus the
+  map of what was and was not inspected (the boundary statement); never manufacture a finding for
+  the visual, and never let styling soften an uncertain verdict into false assurance.
+- **Skill signature** — glyph `◉` (U+25C9, the eye — ASCII fallback `<o>`) · SVG monogram at
+  `assets/signature.svg` (24×24, currentColor; copy FAITHFULLY, never redraw from memory). Use:
+  accent on the posture card title; NEVER in body text or inside the machine-readable ledger.
+  Terminal uses the glyph.
+
 ## Severity and prioritization rules
 
 - Use contextual impact and likelihood. CVSS may describe technical severity but is not the repository's risk score.
