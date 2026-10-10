@@ -20,6 +20,13 @@ When you're handing off, coordinating parallel sessions, or fighting drift betwe
 cp -r claude/pathos ~/.claude/skills/
 ```
 
+`node ~/.claude/skills/pathos/bin/pathos.mjs handoff --write docs/PATHOS.md`
+creates a new handoff scaffold. It refuses an existing destination; refresh an
+existing handoff by reading and editing it, preserving its decisions and history.
+
+Run the CLI's no-clobber tests from this repository:
+`node --test claude/pathos/test/handoff.test.mjs`.
+
 ---
 <p align="center">
   <img src="../../assets/deviance-prism-icon.png" width="30" alt="">

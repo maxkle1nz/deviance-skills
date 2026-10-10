@@ -369,7 +369,14 @@ function writeHandoff(args) {
     throw new Error("Refusing to write outside the current repo.");
   }
   mkdirSync(dirname(target), { recursive: true });
-  writeFileSync(target, handoffMarkdown(status));
+  try {
+    writeFileSync(target, handoffMarkdown(status), { flag: "wx" });
+  } catch (error) {
+    if (error.code === "EEXIST") {
+      throw new Error("Refusing to overwrite existing handoff. Read and update it manually, or choose a new output path.");
+    }
+    throw error;
+  }
   if (args.json) {
     console.log(JSON.stringify({ schema: "pathos-handoff-write-v0", wrote: rel(target), status }, null, 2));
   } else {
