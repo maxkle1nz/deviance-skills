@@ -3,16 +3,17 @@ import { execFileSync } from "node:child_process";
 import {
   cpSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readdirSync,
   readFileSync,
+  realpathSync,
   renameSync,
-  statSync,
   writeFileSync,
 } from "node:fs";
-import { basename, dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 
-const ROOT = resolve(process.cwd());
+const ROOT = realpathSync(process.cwd());
 const DEFAULT_BACKUP_ROOT = ".pathos/backups";
 const DEFAULT_TRASH_ROOT = ".pathos/trash";
 
@@ -72,8 +73,41 @@ function rel(path) {
 }
 
 function isInsideRoot(path) {
-  const value = relative(ROOT, path);
-  return value === "" || (!value.startsWith("..") && !value.startsWith("/"));
+  return isWithin(ROOT, path);
+}
+
+function isWithin(parent, path) {
+  const value = relative(parent, path);
+  return value === "" || (value !== ".." && !value.startsWith(`..${sep}`) && !isAbsolute(value));
+}
+
+function assertProjectPath(path) {
+  if (path === ROOT || !isInsideRoot(path)) {
+    throw new Error("Archive and source paths must be strict descendants of the project root.");
+  }
+  let current = ROOT;
+  for (const part of relative(ROOT, path).split(sep)) {
+    if (part === ".git") throw new Error("Refusing to archive into Git metadata.");
+    current = join(current, part);
+    const stat = lstatSync(current, { throwIfNoEntry: false });
+    if (stat?.isSymbolicLink()) {
+      throw new Error("Refusing a custodian path containing a symlink.");
+    }
+    if (stat?.isDirectory() && lstatSync(join(current, ".git"), { throwIfNoEntry: false })) {
+      throw new Error("Refusing to cross a nested repository boundary.");
+    }
+  }
+}
+
+function trackedPaths() {
+  try {
+    const output = execFileSync("git", ["ls-files", "-z", "--cached", "--", "."], {
+      cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+    });
+    return { verified: true, reason: "Git tracking verified.", files: output.split("\0").filter(Boolean).map((file) => resolve(ROOT, file)) };
+  } catch {
+    return { verified: false, reason: "Git tracking unavailable; scan/report-only until tracking can be verified.", files: [] };
+  }
 }
 
 function readJson(path) {
@@ -129,11 +163,13 @@ function packageInfo() {
 }
 
 function sizeOf(path) {
-  if (!existsSync(path)) return 0;
-  const stat = statSync(path);
+  const stat = lstatSync(path, { throwIfNoEntry: false });
+  if (!stat || stat.isSymbolicLink()) return 0;
   if (!stat.isDirectory()) return stat.size;
+  if (lstatSync(join(path, ".git"), { throwIfNoEntry: false })) return 0;
   let total = 0;
   for (const entry of readdirSync(path)) {
+    if (entry === ".git" || entry === ".pathos") continue;
     total += sizeOf(join(path, entry));
   }
   return total;
@@ -151,8 +187,9 @@ function formatBytes(bytes) {
 }
 
 function ageOf(path) {
-  if (!existsSync(path)) return "--";
-  const ms = Date.now() - statSync(path).mtimeMs;
+  const stat = lstatSync(path, { throwIfNoEntry: false });
+  if (!stat) return "--";
+  const ms = Date.now() - stat.mtimeMs;
   const minutes = Math.floor(ms / 60000);
   if (minutes < 1) return "now";
   if (minutes < 60) return `${minutes}m`;
@@ -163,10 +200,12 @@ function ageOf(path) {
 
 function walkFiles(dir, maxDepth = 3, depth = 0, out = []) {
   if (!existsSync(dir) || depth > maxDepth) return out;
+  if (dir !== ROOT && lstatSync(join(dir, ".git"), { throwIfNoEntry: false })) return out;
   for (const entry of readdirSync(dir)) {
-    if (entry === ".git" || entry === "node_modules" || entry === "dist") continue;
+    if (entry === ".git" || entry === ".pathos" || entry === "node_modules" || entry === "dist") continue;
     const path = join(dir, entry);
-    const stat = statSync(path);
+    const stat = lstatSync(path);
+    if (stat.isSymbolicLink()) continue;
     if (stat.isDirectory()) {
       walkFiles(path, maxDepth, depth + 1, out);
     } else {
@@ -176,13 +215,22 @@ function walkFiles(dir, maxDepth = 3, depth = 0, out = []) {
   return out;
 }
 
+function containsProtectedTree(path) {
+  const stat = lstatSync(path);
+  if (!stat.isDirectory() || stat.isSymbolicLink()) return false;
+  const entries = readdirSync(path);
+  if (entries.includes(".git") || entries.includes(".pathos")) return true;
+  return entries.some((entry) => containsProtectedTree(join(path, entry)));
+}
+
 function candidate(path, kind, risk, action, cleanable = false) {
+  const bytes = sizeOf(path);
   return {
     path: rel(path),
     kind,
     age: ageOf(path),
-    size: formatBytes(sizeOf(path)),
-    bytes: sizeOf(path),
+    size: formatBytes(bytes),
+    bytes,
     risk,
     action,
     cleanable,
@@ -191,6 +239,7 @@ function candidate(path, kind, risk, action, cleanable = false) {
 
 function scanCandidates() {
   const candidates = [];
+  const tracking = trackedPaths();
   const knownDirs = [
     ["dist", "build output", "low", "archive or regenerate", true],
     ["coverage", "test coverage", "low", "archive or regenerate", true],
@@ -202,7 +251,7 @@ function scanCandidates() {
   ];
   for (const [name, kind, risk, action, cleanable] of knownDirs) {
     const path = join(ROOT, name);
-    if (existsSync(path)) candidates.push(candidate(path, kind, risk, action, cleanable));
+    if (lstatSync(path, { throwIfNoEntry: false })) candidates.push(candidate(path, kind, risk, action, cleanable));
   }
 
   for (const file of walkFiles(ROOT, 4)) {
@@ -223,13 +272,29 @@ function scanCandidates() {
     }
   }
 
-  return candidates.sort((a, b) => b.bytes - a.bytes);
+  for (const item of candidates) {
+    const path = resolve(ROOT, item.path);
+    const reason = lstatSync(path).isSymbolicLink() ? "symlink; review only"
+      : !tracking.verified ? tracking.reason
+      : tracking.files.some((file) => isWithin(path, file) || isWithin(file, path)) ? "tracked content; review only"
+      : item.cleanable && containsProtectedTree(path) ? "nested repository or PATHOS archive; review only"
+      : null;
+    if (reason) {
+      item.cleanable = false;
+      item.risk = "protected";
+      item.action = reason;
+    }
+  }
+  return {
+    candidates: candidates.sort((a, b) => b.bytes - a.bytes),
+    tracking: { verified: tracking.verified, reason: tracking.reason },
+  };
 }
 
 function collectStatus() {
   const git = gitInfo();
   const pkg = packageInfo();
-  const candidates = scanCandidates();
+  const { candidates, tracking } = scanCandidates();
   return {
     schema: "pathos-session-status-v0",
     generated_at: new Date().toISOString(),
@@ -238,6 +303,7 @@ function collectStatus() {
     package: pkg,
     git,
     custodian: {
+      tracking,
       candidates: candidates.length,
       cleanable_candidates: candidates.filter((item) => item.cleanable).length,
       total_candidate_bytes: candidates.reduce((sum, item) => sum + item.bytes, 0),
@@ -384,13 +450,14 @@ function writeHandoff(args) {
   }
 }
 
-function printScan(candidates, args) {
+function printScan({ candidates, tracking }, args) {
   if (args.json) {
-    console.log(JSON.stringify({ schema: "pathos-custodian-scan-v0", dry_run: true, candidates }, null, 2));
+    console.log(JSON.stringify({ schema: "pathos-custodian-scan-v0", dry_run: true, candidates, tracking }, null, 2));
     return;
   }
   console.log(color("✦ PATHOS CUSTODIAN", "lime"));
   console.log(color("dry-run inventory; nothing changed", "dim"));
+  console.log(tracking.reason);
   console.log();
   console.log("SESSION / ARTIFACT".padEnd(34), "AGE".padEnd(7), "SIZE".padEnd(9), "STATUS");
   for (const item of candidates) {
@@ -409,7 +476,7 @@ function backup(args) {
   if (!isInsideRoot(out)) throw new Error("Refusing to write backup outside the current repo.");
   mkdirSync(out, { recursive: true });
   const status = collectStatus();
-  const candidates = scanCandidates();
+  const { candidates } = scanCandidates();
   writeFileSync(join(out, "manifest.json"), JSON.stringify({
     schema: "pathos-custodian-backup-v0",
     generated_at: new Date().toISOString(),
@@ -426,25 +493,47 @@ function backup(args) {
 }
 
 function clean(args) {
-  const candidates = scanCandidates().filter((item) => item.cleanable);
-  if (!args.apply || !args.yes) {
-    printScan(candidates, { ...args, json: args.json });
+  const scan = scanCandidates();
+  if (args.dryRun || !args.apply || !args.yes) {
+    printScan(scan, args);
     if (!args.json) console.log(color("No files moved. Use --apply --yes after backup to archive cleanable artifacts.", "gold"));
     return;
   }
+  if (!scan.tracking.verified) throw new Error(scan.tracking.reason);
+  const eligible = scan.candidates.filter((item) => item.cleanable);
+  const candidates = eligible.filter((item) => !eligible.some((other) =>
+    other !== item && isWithin(resolve(ROOT, other.path), resolve(ROOT, item.path))));
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const trashRoot = resolve(ROOT, args.trash || join(DEFAULT_TRASH_ROOT, stamp));
-  mkdirSync(trashRoot, { recursive: true });
+  assertProjectPath(trashRoot);
+  if (lstatSync(trashRoot, { throwIfNoEntry: false })) {
+    throw new Error("Refusing an existing archive destination; choose a fresh directory.");
+  }
+  for (const item of candidates) {
+    const from = resolve(ROOT, item.path);
+    assertProjectPath(from);
+    if (isWithin(from, trashRoot) || isWithin(trashRoot, from)) {
+      throw new Error("Archive destination overlaps a cleanup candidate.");
+    }
+  }
+  mkdirSync(dirname(trashRoot), { recursive: true });
+  assertProjectPath(trashRoot);
+  mkdirSync(trashRoot); // Exclusive reservation: never reuse a prior archive.
   const moved = [];
   for (const item of candidates) {
     const from = resolve(ROOT, item.path);
-    if (!existsSync(from) || !isInsideRoot(from)) continue;
+    assertProjectPath(from);
     const to = join(trashRoot, item.path);
+    assertProjectPath(to);
     mkdirSync(dirname(to), { recursive: true });
+    assertProjectPath(to);
+    if (lstatSync(to, { throwIfNoEntry: false })) throw new Error("Refusing to replace an archive entry.");
     renameSync(from, to);
     moved.push({ from: item.path, to: rel(to) });
   }
-  writeFileSync(join(trashRoot, "manifest.json"), JSON.stringify({ schema: "pathos-custodian-trash-v0", moved }, null, 2));
+  const manifest = join(trashRoot, "manifest.json");
+  assertProjectPath(manifest);
+  writeFileSync(manifest, JSON.stringify({ schema: "pathos-custodian-trash-v0", moved }, null, 2), { flag: "wx" });
   if (args.json) {
     console.log(JSON.stringify({ schema: "pathos-custodian-clean-v0", moved }, null, 2));
   } else {
