@@ -24,8 +24,20 @@ cp -r claude/pathos ~/.claude/skills/
 creates a new handoff scaffold. It refuses an existing destination; refresh an
 existing handoff by reading and editing it, preserving its decisions and history.
 
-Run the CLI's no-clobber tests from this repository:
-`node --test claude/pathos/test/handoff.test.mjs`.
+Custodian leaves tracked files and directories containing them for review. It
+requires verified Git tracking before applying cleanup; non-Git directories can
+still be inventoried. Scan and clean do not follow symlinks; nested repositories and previous
+`.pathos` archives are protected, including their enclosing generated directories.
+Git metadata is never an archive destination. `--dry-run` wins even if apply flags
+are also present. Custom
+archive destinations must be fresh directories inside the project, with no
+symlink components or overlap with the sources being moved.
+
+Keep the workspace quiescent during cleanup. These checks do not provide
+race-proof confinement against hostile concurrent filesystem replacement.
+
+Run the CLI's fixture tests from this repository:
+`node --test claude/pathos/test/*.test.mjs`.
 
 ---
 <p align="center">

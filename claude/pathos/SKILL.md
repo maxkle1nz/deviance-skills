@@ -84,6 +84,18 @@ Custodian Mode is backup-first and confirmation-gated:
    user work. If the path is ambiguous, stop and ask.
 8. Prefer reversible moves to a dated archive over permanent deletion.
 
+The CLI only archives candidates after Git tracking is verified. Tracked files
+and directories containing tracked files stay review-only; without Git tracking,
+inventory remains available but applying cleanup is refused. Scan and clean do not
+follow symlinks; nested repositories and `.pathos` archives are protected from traversal
+and enclosing-directory cleanup. Git metadata is never an archive destination. An explicit
+`--dry-run` always takes precedence over `--apply --yes`.
+
+An archive destination must be a new directory strictly inside the project,
+with no symlink components and no overlap with a selected source. These checks
+protect normal local use, not hostile concurrent filesystem replacement. Keep
+the project quiescent while archiving; this is not a filesystem sandbox.
+
 Suggested terminal report shape:
 
 ```text
