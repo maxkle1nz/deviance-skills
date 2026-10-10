@@ -113,6 +113,10 @@ pathos custodian backup
 pathos custodian clean --dry-run
 ```
 
+`handoff --write` creates a new scaffold only; it refuses an existing destination.
+To refresh an existing handoff, read and edit it while preserving still-true
+continuity. Use a new output path if a separate scaffold is useful.
+
 ## Workflow
 
 1. Locate the truth surface.
