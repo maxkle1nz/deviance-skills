@@ -109,6 +109,8 @@ These were extracted from a setup in daily use, not written for display. Several
 
 The `m1nd-first` skill is not here. It ships with the m1nd repo it belongs to: https://github.com/maxkle1nz/m1nd
 
+The `agy` skill is not here either. It ships with [Wingman AGY](https://github.com/maxkle1nz/wingman-agy), the CLI it teaches: Claude Code and Codex hand work to Antigravity agents with it, and `agy setup --apply` installs it.
+
 ## Continue from here
 
 MIT licensed — fork it. The way to add one is to write your own variation of a skill and test it against real use. That is how the skills here earned their spot.
