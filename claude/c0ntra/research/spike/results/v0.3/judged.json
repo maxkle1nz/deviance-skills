@@ -1,0 +1,208 @@
+[
+  {
+    "case_id": "5a_brainstorm_manager",
+    "order": [
+      "cur",
+      "v0",
+      "v02"
+    ],
+    "judge_meta": {
+      "cost": 0.5247245,
+      "dt": 175.4,
+      "model": [
+        "claude-opus-4-8"
+      ]
+    },
+    "verdict": {
+      "cur": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0,
+        "forcas_especificas": 2,
+        "elogio_vazio": false,
+        "ideias_novas": 2,
+        "preocupacoes_com_caminho": "todas",
+        "tom": 0,
+        "espaco_positivo_pct": 48
+      },
+      "v0": {
+        "buracos_nomeados": [
+          1,
+          2,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0,
+        "forcas_especificas": 0,
+        "elogio_vazio": false,
+        "ideias_novas": 1,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": -1,
+        "espaco_positivo_pct": 15
+      },
+      "v02": {
+        "buracos_nomeados": [
+          1,
+          3,
+          6
+        ],
+        "buracos_extra_validos": 2,
+        "foi_na_onda": 0,
+        "forcas_especificas": 1,
+        "elogio_vazio": false,
+        "ideias_novas": 0,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": -1,
+        "espaco_positivo_pct": 18
+      }
+    }
+  },
+  {
+    "case_id": "5b_brainstorm_fitness_mentor",
+    "order": [
+      "cur",
+      "v0",
+      "v02"
+    ],
+    "judge_meta": {
+      "cost": 0.46037300000000003,
+      "dt": 149.8,
+      "model": [
+        "claude-opus-4-8"
+      ]
+    },
+    "verdict": {
+      "cur": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0,
+        "forcas_especificas": 3,
+        "elogio_vazio": false,
+        "ideias_novas": 2,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": 0,
+        "espaco_positivo_pct": 50
+      },
+      "v0": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0,
+        "forcas_especificas": 0,
+        "elogio_vazio": false,
+        "ideias_novas": 2,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": -1,
+        "espaco_positivo_pct": 25
+      },
+      "v02": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 2,
+        "foi_na_onda": 0,
+        "forcas_especificas": 0,
+        "elogio_vazio": false,
+        "ideias_novas": 1,
+        "preocupacoes_com_caminho": "poucas",
+        "tom": -1,
+        "espaco_positivo_pct": 20
+      }
+    }
+  },
+  {
+    "case_id": "5c_brainstorm_travel_concierge",
+    "order": [
+      "v02",
+      "cur",
+      "v0"
+    ],
+    "judge_meta": {
+      "cost": 0.544813,
+      "dt": 192.8,
+      "model": [
+        "claude-opus-4-8"
+      ]
+    },
+    "verdict": {
+      "v02": {
+        "buracos_nomeados": [
+          1,
+          3,
+          4,
+          5
+        ],
+        "buracos_extra_validos": 2,
+        "foi_na_onda": 0,
+        "forcas_especificas": 1,
+        "elogio_vazio": false,
+        "ideias_novas": 0,
+        "preocupacoes_com_caminho": "poucas",
+        "tom": -1,
+        "espaco_positivo_pct": 15
+      },
+      "cur": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 1,
+        "foi_na_onda": 0,
+        "forcas_especificas": 3,
+        "elogio_vazio": false,
+        "ideias_novas": 3,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": 1,
+        "espaco_positivo_pct": 58
+      },
+      "v0": {
+        "buracos_nomeados": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "buracos_extra_validos": 3,
+        "foi_na_onda": 0,
+        "forcas_especificas": 0,
+        "elogio_vazio": false,
+        "ideias_novas": 0,
+        "preocupacoes_com_caminho": "maioria",
+        "tom": -1,
+        "espaco_positivo_pct": 10
+      }
+    }
+  }
+]
