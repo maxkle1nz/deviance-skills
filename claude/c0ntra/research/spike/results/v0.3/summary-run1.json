@@ -1,0 +1,49 @@
+{
+  "v0": {
+    "buracos_de_6": 5.33,
+    "buracos_extra_validos": 2.33,
+    "foi_na_onda": 0.0,
+    "forcas_especificas": 0.0,
+    "ideias_novas": 0.67,
+    "tom": -1.0,
+    "espaco_positivo_pct": 17.33,
+    "elogio_vazio": 0,
+    "preocupacoes_com_caminho": [
+      "maioria",
+      "maioria",
+      "maioria"
+    ]
+  },
+  "v02": {
+    "buracos_de_6": 4.0,
+    "buracos_extra_validos": 2.0,
+    "foi_na_onda": 0.0,
+    "forcas_especificas": 0.67,
+    "ideias_novas": 0.67,
+    "tom": -1.0,
+    "espaco_positivo_pct": 16.67,
+    "elogio_vazio": 0,
+    "preocupacoes_com_caminho": [
+      "maioria",
+      "poucas",
+      "poucas"
+    ]
+  },
+  "cur": {
+    "buracos_de_6": 4.0,
+    "buracos_extra_validos": 2.0,
+    "foi_na_onda": 0.67,
+    "forcas_especificas": 3.0,
+    "ideias_novas": 3.33,
+    "tom": 1.0,
+    "espaco_positivo_pct": 51.67,
+    "elogio_vazio": 0,
+    "preocupacoes_com_caminho": [
+      "todas",
+      "maioria",
+      "todas"
+    ]
+  },
+  "calls": 9,
+  "cost_usd": 5.42
+}
